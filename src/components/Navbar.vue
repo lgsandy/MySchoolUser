@@ -143,42 +143,28 @@ export default {
         icon: "store",
         text: "STORE MANAGEMENT",
         "icon-alt": "store",
-        link: "/stores_management",
-        
+        link: "/stores_management"
       },
-     {
+      {
         icon: "cloud_circle",
         text: "DOCUMENT MANAGEMENT",
         "icon-alt": "cloud_circle",
         model: false,
-        link: "/dms",
+        link: "/dms"
       },
       {
         icon: "description",
         text: "INVOICE MANAGEMENT",
         "icon-alt": "description",
         model: false,
-        link: "/ims",
+        link: "/ims"
       },
-       {
+      {
         icon: "group",
         text: "HR MANAGEMENT",
-        "icon-alt": "group", 
+        "icon-alt": "group",
         model: false,
-        link: "/hrms",
-      },
-      {
-        icon: "local_shipping",
-        text: "VEHICLE TRACKING",
-        "icon-alt": "local_shipping", 
-        model: false,
-        link: "/vms",
-      },
-      {
-        icon: "settings",
-        "icon-alt": "settings",
-        text: "ERP SETTINGS",
-        model: false,
+        link: "/hrms"
       }
     ]
   }),

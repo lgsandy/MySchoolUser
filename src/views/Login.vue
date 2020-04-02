@@ -6,7 +6,12 @@
           <v-layout align-center justify-center>
             <v-flex xs12 sm8 md4>
               <v-flex xs12>
-                <v-img :src="require('../assets/rukylogo.jpg')" class="my-3" contain height="75"></v-img>
+                <v-img
+                  :src="require('../assets/school.png')"
+                  class="my-3"
+                  contain
+                  height="200"
+                ></v-img>
               </v-flex>
               <v-card class="elevation-12">
                 <v-toolbar color="primary" dark flat>
@@ -14,7 +19,9 @@
                   <v-spacer></v-spacer>
                 </v-toolbar>
                 <v-card-text>
-                  <p v-if="showerror" style="color:red;">Enter Invalid credentials</p>
+                  <p v-if="showerror" style="color:red;">
+                    Enter Invalid credentials
+                  </p>
                   <v-form v-model="valid">
                     <v-text-field
                       v-on:click="selectedusername"
@@ -60,7 +67,7 @@
 </template>
 <script>
 import { mapActions } from "vuex";
-// import router from '../router/index';
+import router from "../router/index";
 
 export default {
   name: "Login",
@@ -87,30 +94,30 @@ export default {
   methods: {
     ...mapActions(["login"]),
     loginUser() {
-      let user = {
-        email: this.input.username,
-        password: this.input.password
-      };
-      this.login(user)
-        .then(result => {
+      router.push("/main");
+      //     let user = {
+      //       email: this.input.username,
+      //       password: this.input.password
+      //     };
+      //     this.login(user)
+      //       .then(result => {
 
-       
-          console.log(result);
-          if (result.data.success) {
-   console.log('----------');
-          // router.push({name:'/main'}).catch((err) => {console.log(err)})
-          this.$router.go();
-        
-          } else {
-            this.showerror = true;
-          }
-        })
-        .catch(err => {
-          console.log(err);
-           this.showerror = true;
-        });
+      //         console.log(result);
+      //         if (result.data.success) {
+      //  console.log('----------');
+      //         // router.push({name:'/main'}).catch((err) => {console.log(err)})
+      //         this.$router.go();
+
+      //         } else {
+      //           this.showerror = true;
+      //         }
+      //       })
+      //       .catch(err => {
+      //         console.log(err);
+      //          this.showerror = true;
+      //       });
     },
-    
+
     selectedusername() {
       this.showerror = false;
     },

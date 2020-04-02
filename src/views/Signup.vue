@@ -6,7 +6,11 @@
           <v-layout align-center justify-center>
             <v-flex xs12 sm8 md4>
               <v-flex xs12>
-                <v-img :src="require('../assets/rukylogo.jpg')" class="my-3" contain height="75"></v-img>
+                <v-img
+                  :src="require('../assets/school.png')"
+                  class="my-3"
+                  contain
+                ></v-img>
               </v-flex>
               <v-card class="elevation-12">
                 <v-toolbar color="primary" dark flat>
