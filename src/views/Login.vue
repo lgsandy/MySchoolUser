@@ -10,7 +10,7 @@
                   :src="require('../assets/school.png')"
                   class="my-3"
                   contain
-                  height="200"
+                  height="120"
                 ></v-img>
               </v-flex>
               <v-card class="elevation-12">
@@ -23,28 +23,26 @@
                     Enter Invalid credentials
                   </p>
                   <v-form v-model="valid">
-                    <v-text-field
-                      v-on:click="selectedusername"
-                      label="Username"
-                      name="login"
-                      :rules="loginRules"
-                      prepend-icon="person"
-                      type="text"
-                      v-model="input.username"
-                    ></v-text-field>
-
-                    <v-text-field
-                      v-on:click="selectedpass"
-                      id="password"
-                      label="Password"
-                      name="password"
-                      :append-icon="show4 ? 'visibility' : 'visibility_off'"
-                      :rules="passRules"
-                      prepend-icon="lock"
-                      :type="show4 ? 'text' : 'password'"
-                      v-model="input.password"
-                      @click:append="show4 = !show4"
-                    ></v-text-field>
+                    <v-select
+                      prepend-icon="emoji_flags"
+                      :items="items"
+                      label="Select ountry"
+                    ></v-select>
+                    <v-select
+                      prepend-icon="house"
+                      :items="items"
+                      label="Select State"
+                    ></v-select>
+                    <v-select
+                      prepend-icon="store"
+                      :items="items"
+                      label="Select District"
+                    ></v-select>
+                    <v-select
+                      prepend-icon="school"
+                      :items="items"
+                      label="Select School"
+                    ></v-select>
                   </v-form>
                 </v-card-text>
 
