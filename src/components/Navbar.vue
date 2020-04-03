@@ -13,7 +13,9 @@
             <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title class="title">{{userDetails}}</v-list-item-title>
+            <v-list-item-title class="title">{{
+              userDetails
+            }}</v-list-item-title>
             <v-list-item-subtitle></v-list-item-subtitle>
           </v-list-item-content>
 
@@ -46,7 +48,12 @@
                 </v-list-item-content>
               </v-list-item>
             </template>
-            <v-list-item v-for="(child, i) in item.children" :key="i" router :to="child.link">
+            <v-list-item
+              v-for="(child, i) in item.children"
+              :key="i"
+              router
+              :to="child.link"
+            >
               <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-item-action>
@@ -58,7 +65,7 @@
 
           <v-list-item v-else :key="item.text" router :to="item.link">
             <v-list-item-action>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon :color="item.color" large="">{{ item.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>{{ item.text }}</v-list-item-title>
@@ -70,12 +77,17 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
+    <v-app-bar
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      app
+      color="primary"
+      dark
+    >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-tooltip bottom>
-        <template v-slot:activator="{ on:tooltip }">
+        <template v-slot:activator="{ on: tooltip }">
           <router-link tag="span" to="/main">
-            <span class="title ml-3 mr-5" v-on="{ ...tooltip}">Ruky</span>
+            <span class="title ml-3 mr-5" v-on="{ ...tooltip }">Ruky</span>
           </router-link>
         </template>
         <span>Home</span>
@@ -84,25 +96,25 @@
       <div class="flex-grow-1"></div>
 
       <v-tooltip bottom>
-        <template v-slot:activator="{ on:tooltip }">
-          <v-btn icon rounded dark v-on="{ ...tooltip}">
+        <template v-slot:activator="{ on: tooltip }">
+          <v-btn icon rounded dark v-on="{ ...tooltip }">
             <v-icon>notifications</v-icon>
           </v-btn>
         </template>
         <span>Notification</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <template v-slot:activator="{ on:tooltip }">
-          <v-btn icon rounded dark v-on="{ ...tooltip}">
+        <template v-slot:activator="{ on: tooltip }">
+          <v-btn icon rounded dark v-on="{ ...tooltip }">
             <v-icon>help</v-icon>
           </v-btn>
         </template>
         <span>help</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <template v-slot:activator="{ on:tooltip }">
+        <template v-slot:activator="{ on: tooltip }">
           <!-- <router-link  tag="span"> -->
-          <v-btn icon rounded dark v-on="{ ...tooltip}" @click="logoutUser">
+          <v-btn icon rounded dark v-on="{ ...tooltip }" @click="logoutUser">
             <v-icon>exit_to_app</v-icon>
           </v-btn>
           <!-- </router-link> -->
@@ -114,6 +126,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import router from "../router/index";
 export default {
   name: "Navbar",
   props: {
@@ -126,45 +139,44 @@ export default {
     drawer: null,
     items: [
       {
-        icon: "dashboard",
-        text: "Dashboard",
-        "icon-alt": "dashboard",
-        link: "/dashboard"
+        icon: "home",
+        text: "Home",
+        "icon-alt": "home",
+        link: "/",
+        color: "blue darken-2"
         // children: []
       },
       {
-        icon: "view_module",
+        icon: "person",
         "icon-alt": "view_module",
-        text: "Masters",
-        model: false,
-        link: "/masters"
-      },
-      {
-        icon: "store",
-        text: "STORE MANAGEMENT",
-        "icon-alt": "store",
-        link: "/stores_management"
-      },
-      {
-        icon: "cloud_circle",
-        text: "DOCUMENT MANAGEMENT",
-        "icon-alt": "cloud_circle",
-        model: false,
-        link: "/dms"
-      },
-      {
-        icon: "description",
-        text: "INVOICE MANAGEMENT",
-        "icon-alt": "description",
-        model: false,
-        link: "/ims"
+        text: "Principal",
+        link: "/principal"
       },
       {
         icon: "group",
-        text: "HR MANAGEMENT",
+        text: "Teachers",
+        "icon-alt": "store",
+        link: "/teacher"
+      },
+      {
+        icon: "mail",
+        text: " About Us",
+        "icon-alt": "cloud_circle",
+        model: false,
+        link: "/aboutus"
+      },
+      {
+        icon: "shop",
+        text: "Contact Us",
+        "icon-alt": "description",
+        link: "/contactus"
+      },
+      {
+        icon: "group",
+        text: "Careers",
         "icon-alt": "group",
         model: false,
-        link: "/hrms"
+        link: "/careers"
       }
     ]
   }),
@@ -175,7 +187,8 @@ export default {
     ...mapActions(["logout"]),
 
     logoutUser() {
-      this.logout();
+      localStorage.removeItem("userLoginInfo");
+      router.push("/");
     }
   }
 };

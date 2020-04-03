@@ -2,8 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Login.vue";
 
-import store from "../store/index";
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -32,7 +30,7 @@ const routes = [
     name: "Main",
     component: () => import("../components/Main.vue"),
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     },
     children: [
       {
@@ -53,13 +51,13 @@ const router = new VueRouter({
 //check all router for auth
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!store.getters.isLogedIn) {
+    if (!localStorage.userLoginInfo) {
       next("/");
     } else {
       next();
     }
   } else if (to.matched.some(record => record.meta.requiresGuest)) {
-    if (store.getters.isLogedIn) {
+    if (localStorage.userLoginInfo) {
       next("/main");
     } else {
       next();
