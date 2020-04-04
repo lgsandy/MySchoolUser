@@ -2,7 +2,7 @@
   <div id="app">
     <v-app id="inspire">
       <v-content>
-        <v-container fluid fill-height>
+        <v-container fluid fill-height style="background-color:#57ab8b">
           <v-layout align-center justify-center>
             <v-flex xs12 sm8 md4>
               <!-- <v-flex xs12>
@@ -68,9 +68,8 @@
                   </v-form>
                 </v-card-text>
 
-                <v-card-actions>
+                <v-card-actions style="place-content:center">
                   <!-- <v-btn color="primary" to="/">Home</v-btn> -->
-                  <v-spacer></v-spacer>
                   <v-btn color="primary" v-on:click="loginUser()">Login</v-btn>
                 </v-card-actions>
               </v-card>
@@ -159,10 +158,12 @@ export default {
               localStorage.userLoginInfo = JSON.stringify(userDetails);
               router.push("/main");
             } else {
-              console.log("jjh");
               this.snackbar = true;
-              this.text = "School Did't Found !";
+              this.text = "You don't have permission !";
             }
+          }else{
+              this.snackbar = true;
+              this.text = "You don't have permission !";
           }
         });
       }

@@ -3,19 +3,28 @@
     <Navbar />
     <!-- <v-content> -->
      <router-view />
-     
+     <div v-show="getRouteName == 'Main'">
+       <HomePage/>
+     </div>
     <!-- </v-content> -->
   </v-app>
 </template>
 
 <script>
 import Navbar from "../components/Navbar";
+import HomePage from "../components/home/homepage";
 export default {
   components: {
-    Navbar
+    Navbar,
+    HomePage
   },
   props: {
     source: String
+  },
+  computed:{
+    getRouteName(){
+      return this.$route.name;
+    }
   },
   data: () => ({
     drawer: null,

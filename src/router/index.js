@@ -34,9 +34,29 @@ const routes = [
     },
     children: [
       {
-        path: "/dashboard",
-        name: "Dashboard",
-        component: () => import("../components/Dashboard.vue")
+        path: "/principal",
+        name: "Principal",
+        component: () => import("../components/principal/principalpage.vue")
+      },
+      {
+        path: "/teachers",
+        name: "Teachers",
+        component: () => import("../components/teachers/teacherspage.vue")
+      },
+      {
+        path: "/aboutus",
+        name: "AboutUs",
+        component: () => import("../components/aboutus/aboutuspage.vue")
+      },
+      {
+        path: "/contactus",
+        name: "ContactUs",
+        component: () => import("../components/contactus/contactuspage.vue")
+      },
+      {
+        path: "/careers",
+        name: "Careers",
+        component: () => import("../components/careers/careerspage.vue")
       }
     ]
   }

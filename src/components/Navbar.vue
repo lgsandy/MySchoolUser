@@ -65,7 +65,7 @@
 
           <v-list-item v-else :key="item.text" router :to="item.link">
             <v-list-item-action>
-              <v-icon :color="item.color" large="">{{ item.icon }}</v-icon>
+              <v-icon :color="item.color" >{{ item.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>{{ item.text }}</v-list-item-title>
@@ -156,7 +156,7 @@ export default {
         icon: "group",
         text: "Teachers",
         "icon-alt": "store",
-        link: "/teacher"
+        link: "/teachers"
       },
       {
         icon: "mail",
