@@ -1,12 +1,12 @@
 <template>
   <v-app>
     <Navbar />
-    <!-- <v-content> -->
-     <router-view />
-     <div v-show="getRouteName == 'Main'">
-       <HomePage/>
-     </div>
-    <!-- </v-content> -->
+    <v-container>
+      <router-view />
+      <div v-show="getRouteName == 'Main'">
+        <HomePage />
+      </div>
+    </v-container>
   </v-app>
 </template>
 
@@ -21,8 +21,8 @@ export default {
   props: {
     source: String
   },
-  computed:{
-    getRouteName(){
+  computed: {
+    getRouteName() {
       return this.$route.name;
     }
   },
