@@ -39,6 +39,8 @@
               v-model="item.model"
               :prepend-icon="item.model ? item.icon : item['icon-alt']"
               append-icon
+              sub-group
+              no-action
             >
               <template v-slot:activator>
                 <v-list-item>
