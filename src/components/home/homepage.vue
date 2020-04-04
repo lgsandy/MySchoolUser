@@ -1,7 +1,7 @@
 <template>
   <v-row no-gutters>
     <v-col v-for="menu in menues" :key="menu.icon" cols="12" sm="3" class="pa-4">
-      <!-- <sequential-entrance fromLeft> -->
+      <sequential-entrance fromLeft>
       <v-hover v-slot:default="{ hover }" open-delay="100">
         <v-card class="mx-auto" max-width="270" :elevation="hover ? 16 : 2" route :to="menu.link">
           <v-card-title>
@@ -10,7 +10,7 @@
           <v-card-text class="text--primary">{{menu.text}}</v-card-text>
         </v-card>
       </v-hover>
-      <!-- </sequential-entrance> -->
+      </sequential-entrance>
     </v-col>
   </v-row>
 </template>
