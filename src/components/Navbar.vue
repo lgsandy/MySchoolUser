@@ -79,7 +79,7 @@
       <v-tooltip bottom>
         <template v-slot:activator="{ on: tooltip }">
           <router-link tag="span" to="/main">
-            <span class="title ml-3 mr-5" v-on="{ ...tooltip }">Ruky</span>
+            <span class="title ml-3 mr-5" v-on="{ ...tooltip }">My School User</span>
           </router-link>
         </template>
         <span>Home</span>
