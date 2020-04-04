@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Navbar />
-    <v-container>
+    <v-container fluid>
       <router-view />
       <div v-show="getRouteName == 'Main'">
         <HomePage />

@@ -10,13 +10,11 @@
       <v-list dense>
         <v-list-item link>
           <v-list-item-avatar>
-            <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+            <v-icon large>account_circle</v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title class="title">{{
-              userDetails
-            }}</v-list-item-title>
-            <v-list-item-subtitle></v-list-item-subtitle>
+            <v-list-item-title class="title">{{userName.name}}</v-list-item-title>
+            <v-list-item-subtitle>{{userName.mobileNo}}</v-list-item-subtitle>
           </v-list-item-content>
 
           <v-list-item-action>
@@ -25,64 +23,56 @@
         </v-list-item>
 
         <v-divider class="mx-4"></v-divider>
-        <template v-for="item in items" router :to="item.link">
-          <v-row v-if="item.heading" :key="item.heading" align="center">
-            <v-col cols="6">
-              <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
-            </v-col>
-            <v-col cols="6" class="text-center">
-              <a href="#!" class="body-2 black--text">EDIT</a>
-            </v-col>
-          </v-row>
-          <v-list-group
-            v-else-if="item.children"
-            :key="item.text"
-            v-model="item.model"
-            :prepend-icon="item.model ? item.icon : item['icon-alt']"
-            append-icon
-          >
-            <template v-slot:activator>
-              <v-list-item>
+        <sequential-entrance fromTop>
+          <template v-for="item in items" router :to="item.link">
+            <v-row v-if="item.heading" :key="item.heading" align="center">
+              <v-col cols="6">
+                <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
+              </v-col>
+              <v-col cols="6" class="text-center">
+                <a href="#!" class="body-2 black--text">EDIT</a>
+              </v-col>
+            </v-row>
+            <v-list-group
+              v-else-if="item.children"
+              :key="item.text"
+              v-model="item.model"
+              :prepend-icon="item.model ? item.icon : item['icon-alt']"
+              append-icon
+            >
+              <template v-slot:activator>
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title>{{ item.text }}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </template>
+
+              <v-list-item v-for="(child, i) in item.children" :key="i" router :to="child.id">
+                <v-list-item-action>
+                  <v-icon>class</v-icon>
+                </v-list-item-action>
                 <v-list-item-content>
-                  <v-list-item-title>{{ item.text }}</v-list-item-title>
+                  <v-list-item-title>{{ child.id }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-            </template>
-            <v-list-item
-              v-for="(child, i) in item.children"
-              :key="i"
-              router
-              :to="child.link"
-            >
-              <v-list-item-action v-if="child.icon">
-                <v-icon>{{ child.icon }}</v-icon>
+            </v-list-group>
+
+            <v-list-item v-else :key="item.text" router :to="item.link">
+              <v-list-item-action>
+                <v-icon :color="item.color">{{ item.icon }}</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>{{ child.text }}</v-list-item-title>
+                <v-list-item-title>{{ item.text }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-          </v-list-group>
-
-          <v-list-item v-else :key="item.text" router :to="item.link">
-            <v-list-item-action>
-              <v-icon :color="item.color" >{{ item.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>{{ item.text }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <!-- <v-divider></v-divider> -->
-          <!-- <v-divider class="mx-4"></v-divider> -->
-        </template>
+            <v-divider :key="item.link"></v-divider>
+          </template>
+        </sequential-entrance>
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-tooltip bottom>
         <template v-slot:activator="{ on: tooltip }">
@@ -113,11 +103,9 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on: tooltip }">
-          <!-- <router-link  tag="span"> -->
           <v-btn icon rounded dark v-on="{ ...tooltip }" @click="logoutUser">
             <v-icon>exit_to_app</v-icon>
           </v-btn>
-          <!-- </router-link> -->
         </template>
         <span>Logout</span>
       </v-tooltip>
@@ -125,8 +113,8 @@
   </nav>
 </template>
 <script>
-import { mapGetters, mapActions } from "vuex";
 import router from "../router/index";
+import { db } from "../components/fireBase/firebaseauth";
 export default {
   name: "Navbar",
   props: {
@@ -134,6 +122,7 @@ export default {
   },
   // components: { Users },
   data: () => ({
+    userName: "",
     hover: false,
     dialog: false,
     drawer: null,
@@ -144,7 +133,6 @@ export default {
         "icon-alt": "home",
         link: "/",
         color: "blue darken-2"
-        // children: []
       },
       {
         icon: "person",
@@ -177,18 +165,42 @@ export default {
         "icon-alt": "group",
         model: false,
         link: "/careers"
+      },
+      {
+        icon: "keyboard_arrow_up",
+        "icon-alt": "keyboard_arrow_down",
+        text: "Classes",
+        model: false,
+        children: []
       }
     ]
   }),
-  computed: {
-    ...mapGetters(["userDetails"])
+  computed: {},
+  created() {
+    this.userName = JSON.parse(localStorage.userLoginInfo);
+    this.loadClassesFromDb();
   },
   methods: {
-    ...mapActions(["logout"]),
-
     logoutUser() {
       localStorage.removeItem("userLoginInfo");
       router.push("/");
+    },
+    loadClassesFromDb() {
+      let value = JSON.parse(localStorage.userLoginInfo);
+      console.log(value);
+      let ref = db
+        .collection("allschool")
+        .doc(value.country)
+        .collection(value.state)
+        .doc(value.district)
+        .collection(value.school)
+        .doc("allClass")
+        .collection("Classes");
+      ref.onSnapshot(res => {
+        if (res && res.docs && res.docs.length) {
+          this.items[6].children = res.docs;
+        }
+      });
     }
   }
 };
