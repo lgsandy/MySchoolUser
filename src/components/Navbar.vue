@@ -3,6 +3,7 @@
     <v-navigation-drawer
       v-model="drawer"
       class="grey lighten-4"
+      :mini-variant.sync="mini"
       :expand-on-hover="hover"
       :clipped="$vuetify.breakpoint.lgAndUp"
       app
@@ -17,9 +18,14 @@
             <v-list-item-subtitle>{{userName.mobileNo}}</v-list-item-subtitle>
           </v-list-item-content>
 
-          <v-list-item-action>
-            <v-icon>mdi-menu-down</v-icon>
-          </v-list-item-action>
+          <v-tooltip right>
+            <template v-slot:activator="{ on:tooltip }">
+              <v-btn icon @click.stop="mini = !mini" v-on="{ ...tooltip}">
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+            </template>
+            <span>Collapse</span>
+          </v-tooltip>
         </v-list-item>
 
         <v-divider class="mx-4"></v-divider>
@@ -128,6 +134,7 @@ export default {
     hover: false,
     dialog: false,
     drawer: null,
+    mini: false,
     items: [
       {
         icon: "home",
