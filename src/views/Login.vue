@@ -12,16 +12,14 @@
                   contain
                   height="120"
                 ></v-img>
-              </v-flex> -->
+              </v-flex>-->
               <v-card class="elevation-12">
                 <v-toolbar color="primary" dark flat>
                   <v-toolbar-title>Login</v-toolbar-title>
                   <v-spacer></v-spacer>
                 </v-toolbar>
                 <v-card-text>
-                  <p v-if="showerror" style="color:red;">
-                    Enter Invalid credentials
-                  </p>
+                  <p v-if="showerror" style="color:red;">Enter Invalid credentials</p>
                   <v-form ref="loginForm" v-model="valid">
                     <v-select
                       prepend-icon="emoji_flags"
@@ -56,8 +54,7 @@
                       v-model="input.school"
                       :loading="schloading"
                       :rules="schoolVal"
-                    >
-                    </v-select>
+                    ></v-select>
 
                     <v-text-field
                       label="Mobile No"
@@ -77,9 +74,10 @@
                 Don't have account ?
                 <a href="/signup">Sign Up</a>
               </p>-->
-              <v-snackbar v-model="snackbar">
-                {{ text }}
-              </v-snackbar>
+              <v-overlay :value="overlay">
+                <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
+              </v-overlay>
+              <v-snackbar v-model="snackbar">{{ text }}</v-snackbar>
             </v-flex>
           </v-layout>
         </v-container>
@@ -105,6 +103,7 @@ export default {
       schools: [],
       schloading: false,
       snackbar: false,
+      overlay: false,
       text: "",
       showerror: false,
       valid: true,
@@ -135,6 +134,7 @@ export default {
   methods: {
     ...mapActions(["login"]),
     loginUser() {
+      this.overlay = true;
       if (this.$refs.loginForm.validate()) {
         let ref = db
           .collection("allschool")
@@ -144,12 +144,12 @@ export default {
           .collection(this.input.school)
           .doc("permission");
         ref.get().then(res => {
+          this.overlay = false;
           if (res && res.data()) {
             let allDetails = res.data().permission;
             let matchDetails = allDetails.find(
               el => el.mobileNumber == this.input.mobileNo
             );
-            console.log(matchDetails);
             if (matchDetails) {
               let userDetails = this.input;
               userDetails.mobileNumber = matchDetails.mobileNumber;
@@ -161,9 +161,9 @@ export default {
               this.snackbar = true;
               this.text = "You don't have permission !";
             }
-          }else{
-              this.snackbar = true;
-              this.text = "You don't have permission !";
+          } else {
+            this.snackbar = true;
+            this.text = "You don't have permission !";
           }
         });
       }
@@ -207,3 +207,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.v-progress-circular {
+  margin: 1rem;
+}
+</style>
