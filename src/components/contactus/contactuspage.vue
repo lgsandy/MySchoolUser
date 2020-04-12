@@ -11,12 +11,7 @@
 
   <v-card >
     <v-footer>
-      <v-card
-        flat
-        tile
-        width="100%"
-        class="red lighten-1 text-center"
-      >
+      <v-card flat tile width="100%" class="red lighten-1 text-center">
         <v-card-text>
             <v-row>
                 <v-col>
