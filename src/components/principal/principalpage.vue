@@ -1,4 +1,10 @@
 <template>
+<div>
+     <v-card class="mx-auto">
+    <v-img class="white--text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+      <v-card-title class="justify-center">Principal Page</v-card-title>
+    </v-img>
+   </v-card>
   <v-row>
     <v-col cols="12" sm="6" class="pa-4">
       <v-card class="mx-auto" max-width="434" tile>
@@ -75,6 +81,7 @@
       </v-card>
     </v-col>
   </v-row>
+</div>
 </template>
 
 <script>

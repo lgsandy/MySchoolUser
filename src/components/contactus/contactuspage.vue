@@ -1,13 +1,7 @@
 <template>
 <div>
- <v-card
-    class="mx-auto"
-  >
-    <v-img
-      class="white--text align-end"
-      height="200px"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-    >
+  <v-card class="mx-auto">
+    <v-img class="white--text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
       <v-card-title class="justify-center">Contact Page</v-card-title>
     </v-img>
   </v-card>
@@ -33,7 +27,7 @@
                   <div >
                   <span style="font-weight: bold;font-size: 14px;">ADDRESS</span>
                  </div>  
-                 <div style="margin:5pxplace-content: center;display: flex;">
+                 <div style="margin:5px;place-content: center;display: flex;">
                   <p style="width:75%">{{contactUs.address}}</p>
                  </div>  
               </v-card>
