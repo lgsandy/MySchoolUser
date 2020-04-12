@@ -150,6 +150,7 @@ export default {
             let matchDetails = allDetails.find(
               el => el.mobileNumber == this.input.mobileNo
             );
+            console.log("User Found",matchDetails);
             if (matchDetails) {
               let userDetails = this.input;
               userDetails.mobileNumber = matchDetails.mobileNumber;
@@ -190,7 +191,9 @@ export default {
       ref.get().then(res => {
         this.schloading = false;
         if (res && res.docs.length) {
-          this.schools = res.docs;
+          this.schools = res.docs.filter(function (e) {
+          return e.data().isApproved == true;
+         });
         } else {
           this.snackbar = true;
           this.text = "We Did not find any School";
