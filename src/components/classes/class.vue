@@ -44,6 +44,7 @@
   </v-card>
 </template>
 <script>
+import { db } from "../fireBase/firebaseauth";
 export default {
   name: "class",
   data() {
@@ -56,19 +57,19 @@ export default {
           text: "Roll No",
           align: "start",
           sortable: false,
-          value: "rollNo"
+          value: "rollNumber"
         },
-        { text: "Name", value: "name" },
-        { text: "Phone No", value: "phoneNo" },
-        { text: "Attendance", value: "attendence" },
+        { text: "Name", value: "studentName" },
+        { text: "Phone No", value: "phoneNumber" },
+        { text: "Attendance", value: "isPresent" },
         { text: "", value: "data-table-expand" }
       ],
       desserts: [
         {
-          rollNo: "101",
-          name: "Sandy",
-          phoneNo: 1234567890,
-          attendence: true
+          rollNumber: "101",
+          studentName: "Sandy",
+          phoneNumber: 1234567890,
+          isPresent: true
         }
       ]
     };
@@ -77,7 +78,25 @@ export default {
 
   watch: {},
 
-  created() {},
-  methods: {}
+  created() {
+    this.getstudentData()
+  },
+  methods: {
+    getstudentData() {
+    if (localStorage && localStorage.userLoginInfo && localStorage.userLoginInfo.length) {
+     let value = JSON.parse(localStorage.userLoginInfo);
+      let ref = db.collection('allschool').doc(value.country).collection(value.state).
+        doc(value.district).collection(value.school).doc('allClass').collection('Classes').
+        doc('class-1').collection('students');
+       ref.onSnapshot(res => {
+        if (res) {
+          console.log("All student",res.docs[0].data().info);
+            console.log("All student",res.docs[0].data().isPresent);
+        }
+      })
+
+    }
+  }
+  }
 };
 </script>
