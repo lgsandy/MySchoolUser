@@ -29,7 +29,7 @@
         </v-list-item>
 
         <v-divider class="mx-4"></v-divider>
-        <sequential-entrance fromTop>
+        <sequential-entrance fromTop delay="60">
           <template v-for="item in items" router :to="item.link">
             <v-row v-if="item.heading" :key="item.heading" align="center">
               <v-col cols="6">
