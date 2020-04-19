@@ -1,10 +1,10 @@
 <template>
-  <v-footer dark padless app inset>
-    <v-card class="flex" flat tile color="red" :elevation="10">
-      <v-card-text class="primary white--text text-center">
-        {{ new Date().getFullYear() }} —
-        <strong>My School</strong>
-      </v-card-text>
-    </v-card>
+ <v-footer padless color="primary" dark height="40" fixed>
+    <v-col
+      class="text-center"
+      cols="12"
+    >
+      {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+    </v-col>
   </v-footer>
 </template>
