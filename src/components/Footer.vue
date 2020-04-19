@@ -1,0 +1,10 @@
+<template>
+  <v-footer dark padless app inset>
+    <v-card class="flex" flat tile color="red" :elevation="10">
+      <v-card-text class="primary white--text text-center">
+        {{ new Date().getFullYear() }} —
+        <strong>My School</strong>
+      </v-card-text>
+    </v-card>
+  </v-footer>
+</template>

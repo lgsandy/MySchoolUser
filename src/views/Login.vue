@@ -1,89 +1,78 @@
 <template>
-  <div id="app">
-    <v-app id="inspire">
-      <v-content>
-        <v-container fluid fill-height style="background-color:#57ab8b">
-          <v-layout align-center justify-center>
-            <v-flex xs12 sm8 md4>
-              <!-- <v-flex xs12>
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md4>
+        <!-- <v-flex xs12>
                 <v-img
                   :src="require('../assets/school.png')"
                   class="my-3"
                   contain
                   height="120"
                 ></v-img>
-              </v-flex>-->
-              <v-card class="elevation-12">
-                <v-toolbar color="primary" dark flat>
-                  <v-toolbar-title>Login</v-toolbar-title>
-                  <v-spacer></v-spacer>
-                </v-toolbar>
-                <v-card-text>
-                  <p v-if="showerror" style="color:red;">Enter Invalid credentials</p>
-                  <v-form ref="loginForm" v-model="valid">
-                    <v-select
-                      prepend-icon="emoji_flags"
-                      :items="country"
-                      v-model="input.country"
-                      label="Select Country"
-                      @change="loaddistrict"
-                      :rules="countryVal"
-                    ></v-select>
-                    <v-select
-                      prepend-icon="house"
-                      :items="states"
-                      item-text="name"
-                      label="Select State"
-                      v-model="input.state"
-                      @change="loadDist"
-                      :rules="stateVal"
-                    ></v-select>
-                    <v-select
-                      prepend-icon="store"
-                      label="Select District"
-                      :items="districts"
-                      v-model="input.district"
-                      @change="loadSchool"
-                      :rules="distVal"
-                    ></v-select>
-                    <v-select
-                      prepend-icon="school"
-                      label="Select School"
-                      :items="schools"
-                      item-text="id"
-                      v-model="input.school"
-                      :loading="schloading"
-                      :rules="schoolVal"
-                    ></v-select>
+        </v-flex>-->
+        <v-card class="elevation-12">
+          <v-toolbar color="primary" dark flat>
+            <v-toolbar-title>Login</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-card-text>
+            <p v-if="showerror" style="color:red;">Enter Invalid credentials</p>
+            <v-form ref="loginForm" v-model="valid">
+              <v-select
+                prepend-icon="emoji_flags"
+                :items="country"
+                v-model="input.country"
+                label="Select Country"
+                @change="loaddistrict"
+                :rules="countryVal"
+              ></v-select>
+              <v-select
+                prepend-icon="house"
+                :items="states"
+                item-text="name"
+                label="Select State"
+                v-model="input.state"
+                @change="loadDist"
+                :rules="stateVal"
+              ></v-select>
+              <v-select
+                prepend-icon="store"
+                label="Select District"
+                :items="districts"
+                v-model="input.district"
+                @change="loadSchool"
+                :rules="distVal"
+              ></v-select>
+              <v-select
+                prepend-icon="school"
+                label="Select School"
+                :items="schools"
+                item-text="id"
+                v-model="input.school"
+                :loading="schloading"
+                :rules="schoolVal"
+              ></v-select>
 
-                    <v-text-field
-                      label="Mobile No"
-                      prepend-icon="phone"
-                      v-model="input.mobileNo"
-                      :rules="mobileNoVal"
-                    ></v-text-field>
-                  </v-form>
-                </v-card-text>
+              <v-text-field
+                label="Mobile No"
+                prepend-icon="phone"
+                v-model="input.mobileNo"
+                :rules="mobileNoVal"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
 
-                <v-card-actions style="place-content:center">
-                  <!-- <v-btn color="primary" to="/">Home</v-btn> -->
-                  <v-btn color="primary" v-on:click="loginUser()">Login</v-btn>
-                </v-card-actions>
-              </v-card>
-              <!-- <p align="center">
-                Don't have account ?
-                <a href="/signup">Sign Up</a>
-              </p>-->
-              <v-overlay :value="overlay">
-                <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
-              </v-overlay>
-              <v-snackbar v-model="snackbar">{{ text }}</v-snackbar>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-content>
-    </v-app>
-  </div>
+          <v-card-actions style="place-content:center">
+            <v-btn color="primary" v-on:click="loginUser()">Login</v-btn>
+          </v-card-actions>
+        </v-card>
+        <v-overlay :value="overlay">
+          <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
+        </v-overlay>
+        <v-snackbar v-model="snackbar">{{ text }}</v-snackbar>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -150,14 +139,14 @@ export default {
             let matchDetails = allDetails.find(
               el => el.mobileNumber == this.input.mobileNo
             );
-            console.log("User Found",matchDetails);
+            console.log("User Found", matchDetails);
             if (matchDetails) {
               let userDetails = this.input;
               userDetails.mobileNumber = matchDetails.mobileNumber;
               userDetails.name = matchDetails.name;
               console.log("user Data", userDetails);
               localStorage.userLoginInfo = JSON.stringify(userDetails);
-              router.push("/main");
+              router.push("/home");
             } else {
               this.snackbar = true;
               this.text = "You don't have permission !";
@@ -191,9 +180,9 @@ export default {
       ref.get().then(res => {
         this.schloading = false;
         if (res && res.docs.length) {
-          this.schools = res.docs.filter(function (e) {
-          return e.data().isApproved == true;
-         });
+          this.schools = res.docs.filter(function(e) {
+            return e.data().isApproved == true;
+          });
         } else {
           this.snackbar = true;
           this.text = "We Did not find any School";

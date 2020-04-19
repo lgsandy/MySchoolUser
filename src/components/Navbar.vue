@@ -84,7 +84,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-tooltip bottom>
         <template v-slot:activator="{ on: tooltip }">
-          <router-link tag="span" to="/main">
+          <router-link tag="span" to="/home">
             <span class="title ml-3 mr-5" v-on="{ ...tooltip }">{{userName.school}}</span>
           </router-link>
         </template>
@@ -140,7 +140,7 @@ export default {
         icon: "home",
         text: "Home",
         "icon-alt": "home",
-        link: "/",
+        link: "/home",
         color: "blue darken-2"
       },
       {
